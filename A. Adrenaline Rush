@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define double long double
+#define opin ios_base::sync_with_stdio(false);cin.tie(NULL);
+#define opfi freopen("FOOD.INP","r",stdin); freopen("FOOD.OUT","w",stdout);
+#define pii pair<long long,long long>
+#define fi first
+#define se second
+#define pb push_back
+#define fr(i,l,r) for(int i = l;i<=r;++i)
+#define frd(i,l,r) for(int i=r;i>=l;--i)
+#define mset(a,val) memset(a,val,sizeof(a))
+#define all(a) a.begin(),a.end()
+#define vec vector
+#define endl '\n'
+#define POWER signed main()
+const int maxn = 2e5+5,inf = 1e18,mod = 1e9+7;
+// the order starts from the first finisher
+/*
+	3 
+	1 2 3 - orginal
+	
+	finishing order: 
+	3
+	2 3 1
+	
+	2 - 1
+	2 1 3
+	3 - 1
+	2 3 1
+	3 - 2
+	3 2 1
+	2 - 3
+	2 3 1
+*/
+int n,a[maxn];
+vec<pii> v;
+POWER{
+	opin
+	cin >> n;
+	fr(i,1,n)cin >> a[i];
+	frd(i,1,n){
+		vec<pii> s,e;
+		frd(j,1,i-1){
+			if(a[j]<=a[i]){ // can be return
+				s.pb({a[i],a[j]});
+			}
+			else e.pb({a[j],a[i]});
+		}
+		sort(all(s),greater<pii>());
+		for(auto j : s)v.pb(j);
+		for(int j = s.size()-1;j>=0;j--)v.pb({s[j].se,s[j].fi});
+		sort(all(e));
+		for(auto j : e)v.pb(j);
+	}
+	cout << v.size() << endl;
+	for(auto s : v)cout << s.fi << " " << s.se << endl;
+}
